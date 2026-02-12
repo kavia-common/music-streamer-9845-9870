@@ -1,9 +1,14 @@
-import { render, screen } from "@testing-library/react";
+import { render, screen, within } from "@testing-library/react";
 import App from "./App";
 
 test("renders sidebar navigation", () => {
   render(<App />);
-  expect(screen.getByText(/Home/i)).toBeInTheDocument();
-  expect(screen.getByText(/Search/i)).toBeInTheDocument();
-  expect(screen.getByText(/Your Library/i)).toBeInTheDocument();
+
+  // Avoid duplicate matches (e.g., Home in sidebar + page header) by scoping
+  // assertions to the primary navigation landmark.
+  const nav = screen.getByRole("navigation", { name: /primary navigation/i });
+
+  expect(within(nav).getByRole("link", { name: /home/i })).toBeInTheDocument();
+  expect(within(nav).getByRole("link", { name: /search/i })).toBeInTheDocument();
+  expect(within(nav).getByRole("link", { name: /your library/i })).toBeInTheDocument();
 });
