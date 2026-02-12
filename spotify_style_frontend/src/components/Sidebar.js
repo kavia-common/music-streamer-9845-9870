@@ -51,7 +51,7 @@ export default function Sidebar() {
   const linkClassName = ({ isActive }) => `navItem ${isActive ? "navItemActive" : ""}`;
 
   return (
-    <aside className="sidebar" aria-label="Primary navigation">
+    <aside className="sidebar">
       <div className="brand">
         <div className="brandMark" aria-hidden="true" />
         <div className="brandTitle">
@@ -60,7 +60,7 @@ export default function Sidebar() {
         </div>
       </div>
 
-      <nav className="navGroup">
+      <nav className="navGroup" aria-label="Primary navigation">
         <NavLink to="/" className={linkClassName} end>
           <Icon name="home" />
           <span>Home</span>
